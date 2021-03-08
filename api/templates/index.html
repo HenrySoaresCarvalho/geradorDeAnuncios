@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Anuncio</title>
+</head>
+<body>
+    <center>
+        <h1>Gerador de Anuncio</h1>
+        <div id="wrapper">
+            <input type="text" id="desc" placeholder="Descrição">
+            <input type="text" id="sku" placeholder="sku">
+            <input type="text" id="comp" placeholder="comprimento">
+            <input type="text" id="larg" placeholder="largura">
+            <input type="text" id="alt" placeholder="altura"><br><br>
+
+            <select id="pos">
+                <option value="diant">Dianteira</option>
+                <option value="tras">Traseira</option>
+              </select><br><br>
+          
+            <button onclick="enviar_dados()">Adicionar</button>
+
+        </div>
+        <div style="font-family: Verdana, Geneva, Tahoma, sans-serif">
+            <p id="conteudo">Nenhum dado adicionado</p>
+        </div>
+        <button onclick="submit_dados()">Enviar</button>
+        <div id="status"></div>
+    </center>
+    <script>
+        ft = 1
+        function enviar_dados(){
+            desc = document.getElementById('desc').value
+            sku = document.getElementById('sku').value
+            comp = document.getElementById('comp').value
+            larg = document.getElementById('larg').value
+            alt = document.getElementById('alt').value
+            pos = document.getElementById('pos').value
+
+            dt = {
+                desc: desc,
+                sku: sku,
+                comp: comp,
+                larg: larg,
+                alt: alt,
+                pos: pos
+            }
+            prods = []
+            const opts = {
+                method: 'POST',
+                headers: {
+                    'Content-Type':'application/json'
+                },
+                body: JSON.stringify(dt)
+            }
+            if(ft == 1){
+                document.getElementById('conteudo').innerHTML = ''
+                ft = 0
+            }
+
+            const dados = fetch("http://127.0.0.1:5000/add",opts).then(res=>{return res.json()}).then(dados=>{  
+                
+                content = document.getElementById('conteudo').innerHTML
+                st = `<p><b>Descrição:</b> ${dados.descricao} | <b>SKU:</b> ${dados.sku} | <b>Dimensões:</b> ${dados.comprimento}x${dados.altura}x${dados.largura} | <b>Posição: </b>${dados.posicao}</p>`
+                document.getElementById('conteudo').innerHTML = st 
+             })
+             document.getElementById('desc').value = ''
+        }
+        function submit_dados(){
+            ft = 1;
+            document.getElementById('conteudo').innerHTML = 'Nenhum dado adicionado'
+
+            document.getElementById('desc').value = ''
+            document.getElementById('sku').value = ''
+            document.getElementById('comp').value = ''
+            document.getElementById('larg').value = ''
+            document.getElementById('alt').value = ''
+            document.getElementById('conteudo').innerHTML = '<p style="color:green">Enviado com sucesso</p>'
+            fetch("http://127.0.0.1:5000/gerar")
+
+        }
+    </script>
+</body>
+</html>
