@@ -4,7 +4,7 @@ from gerador import Gerador
 app = Flask("__main__")
 ge = Gerador("anuncios.txt")
 anuncios = []
-@app.route("/home")
+@app.route("/")
 def home_page():
     return render_template("index.html")
 
