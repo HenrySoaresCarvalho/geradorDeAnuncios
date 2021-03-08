@@ -1,7 +1,7 @@
 def template(carro,listaCarros,sku,pos,comp,larg,alt):
         temp = f""" 
-        TITULO: Pastilha De Freio Dianteiro Nanocerâmica {carro}
-    DESCRIÇÃO: Jogo de Pastilhas Dianteiras em Excelente qualidade!!!
+        TITULO: Pastilha De Freio {pos} em Nanocerâmica {carro}
+    DESCRIÇÃO: Jogo de Pastilhas {pos} em Excelente qualidade!!!
 
     A Blue Friction® é uma industria especializada em freios de veículos leves, médios e pesados. 
     Somando as suas plantas fabris pelo mundo, são produzidos cerca de 10 de milhões de peças por ano, 
@@ -24,7 +24,7 @@ def template(carro,listaCarros,sku,pos,comp,larg,alt):
     Especificação Técnica:
     • Código Blue Friction®: {sku}
     • Pastilhas em nanocerâmica
-    • Aplicação: {pos}
+    • Aplicação: {pos.title()}
     • Material de atrito chanfrado para menor ruído
     • Manta com baixo nível de ruído (tecnologia Blue Performance)
     • Melhor Dissipação de Calor e Atrito com o Disco de Freio

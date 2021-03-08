@@ -17,8 +17,8 @@
             <input type="text" id="alt" placeholder="altura"><br><br>
 
             <select id="pos">
-                <option value="diant">Dianteira</option>
-                <option value="tras">Traseira</option>
+                <option value="dianteira">Dianteira</option>
+                <option value="traseira">Traseira</option>
               </select><br><br>
           
             <button onclick="enviar_dados()">Adicionar</button>
@@ -62,10 +62,11 @@
             }
 
             const dados = fetch("http://127.0.0.1:5000/add",opts).then(res=>{return res.json()}).then(dados=>{  
-                
+                let st = ''
                 content = document.getElementById('conteudo').innerHTML
-                st = `<p><b>Descrição:</b> ${dados.descricao} | <b>SKU:</b> ${dados.sku} | <b>Dimensões:</b> ${dados.comprimento}x${dados.altura}x${dados.largura} | <b>Posição: </b>${dados.posicao}</p>`
-                document.getElementById('conteudo').innerHTML = st 
+                st = `<p><b>Descrição:</b> ${dados.descricao} | <b>SKU:</b> ${dados.sku} | <b>Dimensões:</b> ${dados.comprimento}x${dados.altura}x${dados.largura} | <b>Posição: </b>${dados.posicao}</p>` + content
+                
+                document.getElementById('conteudo').innerHTML = st
              })
              document.getElementById('desc').value = ''
         }
